@@ -6,6 +6,13 @@ use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 
+ // EJEMPLO GROUP
+
+// Route::controller(OrderController::class)->group(function () {
+//     Route::get('/orders/{id}', 'show');
+//     Route::post('/orders', 'store');
+// });
+
 Route::get('/users/login', [AuthController::class, 'login']); 
 Route::post('/register', [AuthController::class, 'register']); 
 
