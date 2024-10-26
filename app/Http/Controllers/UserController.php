@@ -15,19 +15,19 @@ class UserController extends Controller
     }
 
     public function getById(Request $request, string $id)
-{
-    if ($request->user() || true) { 
-        $user = Users::find($id); 
-        
-        if ($user) {
-            return response()->json($user);
+    {
+        if ($request->user() || true) {
+            $user = Users::find($id);
+
+            if ($user) {
+                return response()->json($user);
+            } else {
+                return response()->json(['error' => 'Usuario no encontrado'], 404);
+            }
         } else {
-            return response()->json(['error' => 'Usuario no encontrado'], 404);
+            return response()->json(['error' => 'No auterizados'], 400);
         }
-    } else {
-        return response()->json(['error' => 'Unauthorized'], 400);
     }
-}
 
 
     public function softDelete()

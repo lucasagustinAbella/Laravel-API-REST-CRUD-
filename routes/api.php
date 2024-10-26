@@ -4,6 +4,9 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
+
+//no uso resource porque esta integrada la autorizacion tmb 
+
 Route::prefix('users')->group(function () {
     // Autenticación
     Route::post('/login', [AuthController::class, 'login']);
