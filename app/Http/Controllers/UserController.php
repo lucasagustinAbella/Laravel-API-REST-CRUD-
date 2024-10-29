@@ -12,7 +12,7 @@ class UserController extends Controller
 
     public function getAll()
     {
-        $users = Users::all();
+        $users = Users::paginate(2);
 
         if ($users->isEmpty()) {
             return response()->json(['error' => 'No se encontraron usuarios'], 404);
