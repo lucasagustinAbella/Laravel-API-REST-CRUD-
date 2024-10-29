@@ -16,5 +16,4 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->append(SessionExpiration::class);
     })
     ->withExceptions(function (Exceptions $exceptions) {
-        //
     })->create();

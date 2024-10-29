@@ -17,11 +17,11 @@ class AuthController extends Controller
         ]);
 
         $user = User::where('email', $request->email)->first();
-        // if (!$user || !Hash::check($request->password, $user->password)) {
-        //     return response()->json(['error' => 'Unauthorized'], 401);
-        // }
+        if (!$user || !Hash::check($request->password, $user->password)) {
+            return response()->json(['error' => 'Sin Autorizacion'], 401);
+        }
 
-        return response()->json(['message' => 'Logeado correctamente', 'user' => $user]);
+        return response()->json(['message' => 'Logeado correctamente', 'user' => $user], 201);
     }
 
     public function register(Request $request)
