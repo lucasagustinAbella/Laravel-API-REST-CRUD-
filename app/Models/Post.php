@@ -13,7 +13,7 @@ class Post extends Model
     ];
 
 
-    // se usa en el ORM para indicar que cada post pertenece a un usuario
+    // se usa en el ORM para indicar que cada post pertenece a un usuario MODELO CHAPERONE
     public function user()
     {
         return $this->belongsTo(User::class);
