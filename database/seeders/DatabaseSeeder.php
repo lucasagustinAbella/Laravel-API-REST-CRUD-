@@ -16,12 +16,12 @@ class DatabaseSeeder extends Seeder
     {
         User::factory(10)->create();
 
-        Role::factory()->create([
-            'id'=>1,
+        Role::create([
+            'id'=> 1 ,
             'name' => 'Admin',
         ]);
-        Role::factory()->create([
-            'id'=>2,
+        Role::create([
+            'id'=> 2 ,
             'name' => 'User',
         ]);
     }
