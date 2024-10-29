@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\UpdateUserRequest;
 use App\Models\User as Users;
-use Illuminate\Foundation\Auth\User;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -40,7 +39,7 @@ class UserController extends Controller
 
     public function destroy(string $id)
     {
-        $user = User::find($id);
+        $user = Users::find($id);
 
         if (!$user) {
             return response()->json(['error' => 'Usuario no encontrado'], 404);
@@ -54,7 +53,7 @@ class UserController extends Controller
 
     public function update(UpdateUserRequest $request, $id)
     {
-        $user = User::find($id);
+        $user = Users::find($id);
 
         if (!$user) {
             return response()->json(['error' => 'Usuario no encontrado'], 404);
