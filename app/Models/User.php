@@ -2,14 +2,12 @@
 
 namespace App\Models;
 
-use Illuminate\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class User extends Authenticatable 
-// implements MustVerifyEmail
 
 {
     use HasFactory, Notifiable, SoftDeletes;
@@ -29,4 +27,12 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function role() {
+        return $this->belongsTo(Role::class, 'role_user');
+    }
+
+    public function hasRole($role) {
+        return $this->roles()->where('name', $role)->exists();
+    }
 }
