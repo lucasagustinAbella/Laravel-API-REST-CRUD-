@@ -6,16 +6,16 @@ use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
 {
-
-
     protected $fillable = [
-    'name',
-    'text',
+        'name',
+        'text',
+        'user_id',
     ];
 
-    // protected function casts(): array
-    // {
-    //     return [
-    //     ]
-    // }
+
+    // se usa en el ORM para indicar que cada post pertenece a un usuario
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
