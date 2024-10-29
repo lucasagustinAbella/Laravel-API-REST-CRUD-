@@ -15,5 +15,5 @@ Route::prefix('users')->group(function () {
     Route::get('/', [UserController::class, 'getAll']);
     Route::get('/{id}', [UserController::class, 'getById']);
     Route::put('/{id}', [UserController::class, 'updateById']);
-    Route::delete('/{id}', [UserController::class, 'softDelete']);
+    Route::delete('/{id}', [UserController::class, 'destroy']);
 });

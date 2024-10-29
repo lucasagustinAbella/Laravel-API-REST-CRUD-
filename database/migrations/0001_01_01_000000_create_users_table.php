@@ -15,9 +15,9 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->boolean('isActive')->default(true);
             $table->rememberToken();
             $table->timestamps();
+            $table->softDeletes(); // Para borrado logico (no borrado completo)
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {
