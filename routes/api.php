@@ -28,6 +28,3 @@ Route::prefix('posts')->group(function () {
     Route::delete('/{id}', [PostController::class, 'destroy']); //delete
 });
 
-Route::get('/email/verify', function () {
-    return view('auth.verify-email');
-})->middleware('auth')->name('verification.notice');

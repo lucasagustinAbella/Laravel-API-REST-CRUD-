@@ -9,3 +9,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/email/verify', function () {
+    return view('auth');
+})->middleware('auth')->name('verification.notice');
