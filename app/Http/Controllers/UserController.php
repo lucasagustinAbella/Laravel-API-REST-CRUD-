@@ -13,8 +13,14 @@ class UserController extends Controller
     public function getAll()
     {
         $users = Users::all();
-        return response()->json($users);
+
+        if ($users->isEmpty()) {
+            return response()->json(['error' => 'No se encontraron usuarios'], 404);
+        }
+
+        return response()->json($users, 200);
     }
+
 
     public function getById(Request $request, string $id)
     {
