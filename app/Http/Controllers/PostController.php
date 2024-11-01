@@ -5,26 +5,10 @@ namespace App\Http\Controllers;
 use App\Http\Requests\UpdatePostRequest;
 use App\Models\Post;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
 
 class PostController extends Controller
 {
-
-    public function create(Request $request)
-    {
-       
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'text' => 'required|string',
-            'user_id' => 'required|exists:users,id', // Se fija que el usuario exista
-        ]);
-
-
-        $post = Post::create($request->all());
-
-        return response()->json(['message' => 'Post exitoso', 'post' => $post], 201);
-    }
-    public function getAll()
+    public function index()
     {
         $posts = Post::all();
 
@@ -35,22 +19,45 @@ class PostController extends Controller
         return response()->json($posts, 200);
     }
 
-
-    public function getById(Request $request, string $id)
+    public function store(Request $request)
     {
-        if ($request->user() || true) {
-            $post = Post::find($id);
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'text' => 'required|string',
+            'user_id' => 'required|exists:users,id', // Verifica que el usuario exista
+        ]);
 
-            if ($post) {
-                return response()->json($post);
-            } else {
-                return response()->json(['error' => 'Post no encontrado'], 404);
-            }
+        $post = Post::create($request->all());
+
+        return response()->json(['message' => 'Post exitoso', 'post' => $post], 201);
+    }
+
+    public function show(string $id)
+    {
+        $post = Post::find($id);
+
+        if ($post) {
+            return response()->json($post);
         } else {
-            return response()->json(['error' => 'No autorizados'], 400);
+            return response()->json(['error' => 'Post no encontrado'], 404);
         }
     }
 
+    public function update(UpdatePostRequest $request, $id)
+    {
+        $post = Post::find($id);
+    
+        if (!$post) {
+            return response()->json(['error' => 'Post no encontrado'], 404);
+        }
+    
+        try {
+            $post->update($request->only(['name', 'text']));
+            return response()->json(['message' => 'Post actualizado correctamente', 'post' => $post], 200);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Error al actualizar el post: ' . $e->getMessage()], 500);
+        }
+    }
 
     public function destroy(string $id)
     {
@@ -63,19 +70,5 @@ class PostController extends Controller
         $post->delete();
 
         return response()->json(['message' => 'Post eliminado correctamente'], 200);
-    }
-
-
-    public function update(UpdatePostRequest $request, $id)
-    {
-        $post = Post::find($id);
-
-        if (!$post) {
-            return response()->json(['error' => 'Post no encontrado'], 404);
-        }
-
-        $post->update($request->only(['name', 'email', 'password']));
-
-        return response()->json(['message' => 'Post actualizado correctamente', 'user' => $post], 200);
     }
 }

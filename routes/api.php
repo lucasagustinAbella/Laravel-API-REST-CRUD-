@@ -15,16 +15,17 @@ Route::prefix('users')->group(function () {
 
     Route::get('/', [UserController::class, 'getAll']);
     Route::get('/{id}', [UserController::class, 'getById']);
-    Route::put('/{id}', [UserController::class, 'updateById']);
+    Route::put('/{id}', [UserController::class, 'update']);
     Route::delete('/{id}', [UserController::class, 'destroy']); //delete
 });
 
 
 Route::prefix('posts')->group(function () {
-    Route::get('/', [PostController::class, 'getAll']);
-    Route::post('/create', [PostController::class, 'create']);
+    Route::get('/', [PostController::class, 'index']);
     Route::put('/{id}', [PostController::class, 'update']);
-    Route::get('/{id}', [PostController::class, 'getById']);
+    Route::post('/create', [PostController::class, 'store']);
+    Route::get('/{id}', [PostController::class, 'show']);
     Route::delete('/{id}', [PostController::class, 'destroy']); //delete
 });
 
+// Route::resource('posts', PostController::class);
