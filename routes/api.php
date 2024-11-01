@@ -23,8 +23,8 @@ Route::prefix('users')->group(function () {
 Route::prefix('posts')->group(function () {
     Route::get('/', [PostController::class, 'getAll']);
     Route::post('/create', [PostController::class, 'create']);
+    Route::put('/{id}', [PostController::class, 'update']);
     Route::get('/{id}', [PostController::class, 'getById']);
-    Route::put('/{id}', [PostController::class, 'updateById']);
     Route::delete('/{id}', [PostController::class, 'destroy']); //delete
 });
 
