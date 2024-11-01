@@ -16,13 +16,13 @@ class DatabaseSeeder extends Seeder
     {
         User::factory(10)->create();
 
-        Role::create([
-            'id'=> 1 ,
-            'name' => 'Admin',
-        ]);
-        Role::create([
-            'id'=> 2 ,
-            'name' => 'User',
-        ]);
+        // Role::create([
+        //     'id'=> 1 ,
+        //     'name' => 'Admin',
+        // ]);
+        // Role::create([
+        //     'id'=> 2 ,
+        //     'name' => 'User',
+        // ]);
     }
 }
