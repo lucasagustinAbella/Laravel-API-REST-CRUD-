@@ -10,15 +10,20 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('users')->group(function () {
     // Autenticación
-    Route::post('/login', [AuthController::class, 'login'])->name('login'); 
+    Route::post('/login', [AuthController::class, 'login'])->name('login');
     Route::post('/register', [AuthController::class, 'register']);
 
-    Route::middleware('auth')->group(function () {
+    // Route::middleware('auth')->group(function () {
+    //     Route::get('/', [UserController::class, 'getAll']);
+    //     Route::get('/{id}', [UserController::class, 'getById']);
+    //     Route::put('/{id}', [UserController::class, 'update']);
+    //     Route::delete('/{id}', [UserController::class, 'destroy']);
+    // });
+
         Route::get('/', [UserController::class, 'getAll']);
         Route::get('/{id}', [UserController::class, 'getById']);
         Route::put('/{id}', [UserController::class, 'update']);
         Route::delete('/{id}', [UserController::class, 'destroy']);
-    });
 });
 
 Route::prefix('posts')->group(function () {
