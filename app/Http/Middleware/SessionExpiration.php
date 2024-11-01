@@ -8,10 +8,9 @@ use Carbon\Carbon;
 
 class SessionExpiration
 {
-
     public function handle($request, Closure $next)
     {
-        if (Auth::check() && Auth::viaRemember()) {
+        if (Auth::check()) {
             $lastActivity = session('last_activity');
 
             if ($lastActivity && Carbon::parse($lastActivity)->diffInMinutes(now()) > 60) {
