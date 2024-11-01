@@ -20,11 +20,7 @@ class PostController extends Controller
         ]);
 
 
-        $post = Post::create([
-            'name' => $request->name,
-            'text' => $request->text,
-            'user_id' => $request->user_id,
-        ]);
+        $post = Post::create($request->all());
 
         return response()->json(['message' => 'Post exitoso', 'post' => $post], 201);
     }

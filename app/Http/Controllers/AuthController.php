@@ -34,6 +34,8 @@ class AuthController extends Controller
             'password' => 'required|string|min:8|confirmed',
         ]);
 
+        //como se cambia el valor de password con un metodo no se puede usar asignacion masiva 
+
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
