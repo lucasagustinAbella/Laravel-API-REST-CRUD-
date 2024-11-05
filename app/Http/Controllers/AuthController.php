@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\User as Users;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
 
@@ -14,7 +13,7 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $request->validate([
-            'email' => 'required|string|email',
+            'email' => 'required|email',
             'password' => 'required|string',
         ]);
 
@@ -28,9 +27,12 @@ class AuthController extends Controller
             return response()->json(['error' => 'Contraseña incorrecta'], 401);
         }
     
-        Auth::login($user);
-    
-        return response()->json(['message' => 'Logeado correctamente', 'user' => $user], 200);
+        $token = $user->createToken('nombre_del_token')->plainTextToken;
+
+        return response()->json([
+            'message' => 'Login exitoso',
+            'token' => $token
+        ], 201);
     }
     
     public function register(Request $request)
@@ -58,4 +60,14 @@ class AuthController extends Controller
             return response()->json(['error' => 'Error al registrar el usuario: ' . $e->getMessage()], 500);
         }
     }
+
+    public function logout(Request $request)
+{
+    $request->user()->tokens->each(function ($token) {
+        $token->delete();
+    });
+
+    return response()->json(['message' => 'Sesión cerrada correctamente']);
+}
+
 }
