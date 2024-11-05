@@ -51,7 +51,7 @@ class AuthController extends Controller
                 'slug' => Str::slug($request->name),
             ]);
               
-        $user->remember_token = Str::random(60);
+        $user->remember_token = Str::random(10);
         $user->save();
 
             
