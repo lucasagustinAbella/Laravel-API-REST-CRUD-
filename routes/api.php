@@ -6,26 +6,29 @@ use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 
+
 //no uso resource porque esta integrada la autorizacion tmb 
 
 Route::prefix('users')->group(function () {
     // Autenticación
-    Route::post('/login', [AuthController::class, 'login'])->name('login');
+    // ->name('login')
+    Route::post('/login', [AuthController::class, 'login']);
     Route::post('/register', [AuthController::class, 'register']);
 
-    // Route::middleware('auth:sanctum')->group(function () {
-    //     Route::get('/', [UserController::class, 'getAll']);
-    //     Route::get('/{id}', [UserController::class, 'getById']);
-    //     Route::put('/{id}', [UserController::class, 'update']);
-    //     Route::delete('/{id}', [UserController::class, 'destroy']);
-    // });
-
+    Route::middleware('auth:sanctum')->group(function () {
         Route::get('/', [UserController::class, 'getAll']);
         Route::get('/{id}', [UserController::class, 'getById']);
         Route::put('/{id}', [UserController::class, 'update']);
         Route::delete('/{id}', [UserController::class, 'destroy']);
-        Route::get('/{email}', [UserController::class, 'findByEmail']);
-        Route::middleware('auth:sanctum')->post('logout', [AuthController::class, 'logout']);
+        Route::post('/logout', [AuthController::class, 'logout']);
+    });
+
+        // Route::get('/', [UserController::class, 'getAll']);
+        // Route::get('/{id}', [UserController::class, 'getById']);
+        // Route::put('/{id}', [UserController::class, 'update']);
+        // Route::delete('/{id}', [UserController::class, 'destroy']);
+        // Route::get('/{email}', [UserController::class, 'findByEmail']);
+        // Route::middleware('auth:sanctum')->post('/logout', [AuthController::class, 'logout']);
 
 
 });

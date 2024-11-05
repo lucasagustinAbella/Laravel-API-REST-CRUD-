@@ -14,7 +14,7 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->statefulApi();
-        $middleware->append(SessionExpiration::class);
+        // $middleware->append(SessionExpiration::class);
     })
     ->withExceptions(function (Exceptions $exceptions) {
     })->create();
