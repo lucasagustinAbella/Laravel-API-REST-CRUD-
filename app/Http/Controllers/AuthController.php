@@ -18,21 +18,21 @@ class AuthController extends Controller
             'password' => 'required|string',
         ]);
 
-        $user = User::where('email', $request->email)->first();
-        
+        $user = User::where('email', 'like', '%' . $request->email . '%')->first();
+            
         if (!$user) {
             return response()->json(['error' => 'Usuario no encontrado'], 404);
         }
-
+    
         if (!Hash::check($request->password, $user->password)) {
             return response()->json(['error' => 'Contraseña incorrecta'], 401);
         }
-
+    
         Auth::login($user);
-
+    
         return response()->json(['message' => 'Logeado correctamente', 'user' => $user], 200);
     }
-
+    
     public function register(Request $request)
     {
         try {
@@ -46,8 +46,12 @@ class AuthController extends Controller
                 'name' => $request->name,
                 'email' => $request->email,
                 'password' => Hash::make($request->password),
-                'slug' => Str::slug($request->name)
+                'slug' => Str::slug($request->name),
             ]);
+              
+        $user->remember_token = Str::random(60);
+        $user->save();
+
             
             return response()->json(['message' => 'Registro exitoso', 'user' => $user], 201);
         } catch (\Exception $e) {
