@@ -24,7 +24,7 @@ return [
     /*
     |--------------------------------------------------------------------------
     | Sanctum Guards
-    |--------------------------------------------------------------------------
+    |------------------------------------------------------------------------z--
     |
     | This array contains the authentication guards that will be checked when
     | Sanctum is trying to authenticate a request. If none of these guards
@@ -33,7 +33,7 @@ return [
     |
     */
 
-    'guard' => ['web'],
+    'guard' => ['api'],
 
     /*
     |--------------------------------------------------------------------------
@@ -61,7 +61,7 @@ return [
     |
     */
 
-    'token_prefix' => env('SANCTUM_TOKEN_PREFIX', ''),
+    'token_prefix' => env('SANCTUM_TOKEN_PREFIX', 'login_token'),
 
     /*
     |--------------------------------------------------------------------------

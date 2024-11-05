@@ -27,7 +27,7 @@ class AuthController extends Controller
             return response()->json(['error' => 'Contraseña incorrecta'], 401);
         }
     
-        $token = $user->createToken('nombre_del_token')->plainTextToken;
+        $token = $user->createToken('login_token')->plainTextToken;
 
         return response()->json([
             'message' => 'Login exitoso',
