@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
+use App\Models\User as Users;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
@@ -18,7 +18,7 @@ class AuthController extends Controller
             'password' => 'required|string',
         ]);
 
-        $user = User::where('email', 'like', '%' . $request->email . '%')->first();
+        $user = Users::where('email', $request->email)->first();
             
         if (!$user) {
             return response()->json(['error' => 'Usuario no encontrado'], 404);
@@ -42,7 +42,7 @@ class AuthController extends Controller
                 'password' => 'required|string|min:8|confirmed',
             ]);
             
-            $user = User::create([
+            $user = Users::create([
                 'name' => $request->name,
                 'email' => $request->email,
                 'password' => Hash::make($request->password),
