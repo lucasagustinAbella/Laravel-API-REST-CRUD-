@@ -24,6 +24,8 @@ Route::prefix('users')->group(function () {
         Route::get('/{id}', [UserController::class, 'getById']);
         Route::put('/{id}', [UserController::class, 'update']);
         Route::delete('/{id}', [UserController::class, 'destroy']);
+        Route::get('/{email}', [UserController::class, 'findByEmail']);
+
 });
 
 Route::prefix('posts')->group(function () {
